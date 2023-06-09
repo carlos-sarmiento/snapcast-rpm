@@ -1,0 +1,117 @@
+= Snapcast RPM
+Jordan Williams <jordan@jwillikers.com>
+:experimental:
+:icons: font
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+:Asciidoctor_: https://asciidoctor.org/[Asciidoctor]
+:Fedora: https://getfedora.org/[Fedora]
+:Git: https://git-scm.com/[Git]
+:pre-commit: https://pre-commit.com/[pre-commit]
+:Snapcast: https://github.com/badaix/snapcast[Snapcast] 
+
+image:https://github.com/jwillikers/nextcloud-client-image/workflows/CI/badge.svg["Build Status", link="https://github.com/jwillikers/nextcloud-client-image/actions?query=workflow%3ACI"]
+
+An RPM spec file for the Snapcast client and server.
+
+== Install
+
+This Snapcast RPM is made available through COPR.
+Follow these steps to install the packages.
+
+. Add the COPR repository.
++
+[,sh]
+----
+curl -L https://copr.fedorainfracloud.org/coprs/jwillikers/snapcast/repo/fedora/jwillikers-snapcast.repo \
+  | sudo tee /etc/yum.repos.d/jwillikers-snapcast.repo
+----
+
+. Install the desired packages.
++
+[,sh]
+----
+sudo dnf -y install snapclient snapserver
+----
+
+== Build
+
+To build locally, follow these steps.
+
+. Install the `git` and `rpmdevtools` packages.
++
+[,sh]
+----
+sudo dnf -y install git rpmdevtools
+----
+
+. Initialize the RPM filesystem tree.
++
+[,sh]
+----
+rpmdev-setuptree
+----
+
+. Clone this repository.
++
+[,sh]
+----
+git clone git@github.com:jwillikers/snapcast-rpm.git
+----
+
+. Change to the directory.
++
+[,sh]
+----
+cd snapcast-rpm
+----
+
+. Fetch the sources.
++
+[,sh]
+----
+spectool -g -R snapcast.spec
+----
+
+. Build the `snapcast` RPM.
++
+[,sh]
+----
+rpmbuild -bb snapcast.spec
+----
+
+== Contributing
+
+Contributions in the form of issues, feedback, and even pull requests are welcome.
+Make sure to adhere to the project's link:CODE_OF_CONDUCT.adoc[Code of Conduct].
+
+== Open Source Software
+
+This project is built on the hard work of countless open source contributors.
+Several of these projects are enumerated below.
+
+* {Asciidoctor_}
+* {Fedora}
+* {Git}
+* {Linux}
+* {pre-commit}
+* {Snapcast}
+
+== Code of Conduct
+
+Refer to the project's link:CODE_OF_CONDUCT.adoc[Code of Conduct] for details.
+
+== License
+
+This repository is licensed under the https://www.gnu.org/licenses/gpl-3.0.html[GPLv3], a copy of which is provided in the link:LICENSE.adoc[license file].
+
+© 2023 Jordan Williams
+
+== Authors
+
+mailto:{email}[{author}]
