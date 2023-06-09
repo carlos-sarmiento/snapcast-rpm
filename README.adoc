@@ -98,7 +98,6 @@ Several of these projects are enumerated below.
 * {Asciidoctor_}
 * {Fedora}
 * {Git}
-* {Linux}
 * {pre-commit}
 * {Snapcast}
 
