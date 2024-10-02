@@ -1,20 +1,18 @@
-Name: snapcast 
-Version:        0.27.0
+Name: snapcast
+Version:        0.29.0
 Release:        %autorelease
-License:        GPL-3.0 
+License:        GPL-3.0
 Group:          Productivity/Multimedia/Sound/Players
 Summary:        Snapcast is a multi-room time-synced client-server audio player
-Url:            https://github.com/badaix/%{name} 
+Url:            https://github.com/badaix/%{name}
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
-Patch0:         https://patch-diff.githubusercontent.com/raw/badaix/snapcast/pull/1124.patch
-Patch1:         https://github.com/badaix/snapcast/commit/4fdb4367b55481944c4d2420da9005e7bd645d0d.patch
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
-BuildRequires:  alsa-lib-devel 
+BuildRequires:  alsa-lib-devel
 BuildRequires:  pulseaudio-libs-devel
-BuildRequires:  avahi-devel 
+BuildRequires:  avahi-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  flac-devel
 BuildRequires:  boost-devel >= 1.74
@@ -25,37 +23,37 @@ Requires(pre):  pwdutils
 BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
 
-%description 
+%description
 Snapcast is a multi-room client-server audio player, where all clients are time synchronized with the server to play perfectly synced audio. It is not a standalone player, but an extension that turns your existing audio player into a Sonos-like multi-room solution. The server's audio input is a named pipe /tmp/snapfifo. All data that is fed into this file will be send to the connected clients. One of the most generic ways to use Snapcast is in conjunction with the music player daemon (MPD) or Mopidy, which can be configured to use a named pipe as audio output.
 
 %package -n snapserver
-Summary:        Snapcast server 
+Summary:        Snapcast server
 
 %description -n snapserver
 Snapcast is a multi-room client-server audio player, where all clients are
 time synchronized with the server to play perfectly synced audio. It's not a
 standalone player, but an extension that turns your existing audio player into
-a Sonos-like multi-room solution.  The server's audio input is a named 
-pipe `/tmp/snapfifo`. All data that is fed into this file will be send to 
-the connected clients. One of the most generic ways to use Snapcast is in 
-conjunction with the music player daemon, MPD, or Mopidy, which can be configured 
+a Sonos-like multi-room solution.  The server's audio input is a named
+pipe `/tmp/snapfifo`. All data that is fed into this file will be send to
+the connected clients. One of the most generic ways to use Snapcast is in
+conjunction with the music player daemon, MPD, or Mopidy, which can be configured
 to use a named pipe as audio output.
 This package contains the server to which clients connect.
 
-%package -n snapclient 
-Summary:        Snapcast client 
+%package -n snapclient
+Summary:        Snapcast client
 
 %description -n snapclient
 Snapcast is a multi-room client-server audio player, where all clients are
 time synchronized with the server to play perfectly synced audio. It's not a
 standalone player, but an extension that turns your existing audio player into
-a Sonos-like multi-room solution. 
+a Sonos-like multi-room solution.
 This package contains the client which connects to the server and plays the audio.
 
-%prep 
+%prep
 %autosetup -p1
 
-%build 
+%build
 %cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DWERROR=ON -DBUILD_TESTS=OFF
 %cmake_build
 
@@ -69,27 +67,27 @@ install -D -m 0644 extras/package/rpm/snapserver.default %{buildroot}/etc/defaul
 install -D -m 0644 extras/package/rpm/snapclient.default %{buildroot}/etc/default/snapclient.default
 
 %pre -n snapclient
-getent passwd snapclient >/dev/null || %{_sbindir}/useradd --user-group --system --groups audio snapclient 
+getent passwd snapclient >/dev/null || %{_sbindir}/useradd --user-group --system --groups audio snapclient
 
 %pre -n snapserver
 mkdir -p %{_sharedstatedir}/snapserver
-getent passwd snapserver >/dev/null || %{_sbindir}/useradd --user-group --system --home-dir %{_sharedstatedir}/snapserver snapserver 
+getent passwd snapserver >/dev/null || %{_sbindir}/useradd --user-group --system --home-dir %{_sharedstatedir}/snapserver snapserver
 chown snapserver %{_sharedstatedir}/snapserver
 chgrp snapserver %{_sharedstatedir}/snapserver
 
 %post -n snapclient
 %systemd_post snapclient.service
 
-%post -n snapserver 
+%post -n snapserver
 %systemd_post snapserver.service
 
-%preun -n snapclient 
+%preun -n snapclient
 %systemd_preun snapclient.service
 
 %preun -n snapserver
 %systemd_preun snapserver.service
 
-%postun -n snapclient 
+%postun -n snapclient
 %systemd_postun_with_restart snapclient.service
 if [ $1 -eq 0 ]; then
    userdel --force snapclient 2> /dev/null; true
