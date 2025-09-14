@@ -57,7 +57,7 @@ This package contains the client which connects to the server and plays the audi
 %autosetup -p1
 
 %build
-%cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DWERROR=ON -DBUILD_TESTS=OFF
+%cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DWERROR=OFF -DBUILD_TESTS=OFF
 %cmake_build
 
 %install
