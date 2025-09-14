@@ -1,5 +1,5 @@
 Name: snapcast
-Version:        0.29.0
+Version:        0.32.3
 Release:        %autorelease
 License:        GPL-3.0
 Group:          Productivity/Multimedia/Sound/Players
