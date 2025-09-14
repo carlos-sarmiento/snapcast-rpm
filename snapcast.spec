@@ -18,6 +18,7 @@ BuildRequires:  flac-devel
 BuildRequires:  boost-devel >= 1.74
 BuildRequires:  opus-devel
 BuildRequires:  soxr-devel
+BuildRequires:  openssl-devel
 BuildRequires:  zlib-devel
 Requires(pre):  pwdutils
 BuildRequires:  systemd
