@@ -1,5 +1,5 @@
 Name: snapcast
-Version:        0.32.3
+Version:        0.33.0
 Release:        %autorelease
 License:        GPL-3.0
 Group:          Productivity/Multimedia/Sound/Players
@@ -11,7 +11,7 @@ BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  ninja-build
 BuildRequires:  alsa-lib-devel
-BuildRequires:  pulseaudio-libs-devel
+BuildRequires:  pipewire-devel
 BuildRequires:  avahi-devel
 BuildRequires:  libvorbis-devel
 BuildRequires:  flac-devel
